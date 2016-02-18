@@ -1,0 +1,9 @@
+gitblit:
+  restart: always
+  build: .
+  ports:
+    - "10443:443"
+    - "9418:9418"
+    - "29418:29418"
+#  environment:
+#    - DEBUG=false
