@@ -67,6 +67,7 @@ sudo docker build -t my-gitblit .
 sudo docker run -d --name gitblit -p 8443:8443 -p 8080:8080 -p 9418:9418 -p 29418:29418 my-gitblit
 ```
 
+
 ## Migrating from an older image
 
 The directory layout for the Gitblit data was changed with the image for version 1.9.0. If you had previously used a Docker image of Gitblit with a volume mounted on `/opt/gitblit-data`, migration of the configuration data is advised. A script `migrate-data` is available in the new image for this. Run the script from a container with your volume mounted under `/var/opt/gitblit`.
