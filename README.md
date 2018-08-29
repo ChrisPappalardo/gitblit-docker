@@ -103,4 +103,3 @@ Checking the defaults.properties file for changes.
 Done.
 
 $ sudo docker run -d --name gitblit -v $PWD/gitblit-data:/var/opt/gitblit -p 8080:8080 my-gitblit
-```
