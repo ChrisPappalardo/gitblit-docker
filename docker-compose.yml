@@ -1,5 +1,5 @@
 gitblit:
-  restart: always
+  restart: on-failure
   build: .
   ports:
     - "10443:443"
