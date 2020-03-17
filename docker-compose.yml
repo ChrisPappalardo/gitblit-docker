@@ -2,10 +2,10 @@ gitblit:
   restart: on-failure
   build: .
   ports:
-    - "10443:443"
+    - "10443:8443"
     - "9418:9418"
     - "29418:29418"
   volumes:
-    - ./gitblit-data:/opt/gitblit-data
+    - ./data:/var/opt/gitblit
 #  environment:
 #    - DEBUG=false

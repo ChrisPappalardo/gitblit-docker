@@ -103,3 +103,22 @@ Checking the defaults.properties file for changes.
 Done.
 
 $ sudo docker run -d --name gitblit -v $PWD/gitblit-data:/var/opt/gitblit -p 8080:8080 my-gitblit
+```
+
+## S3FS data directory and Docker-compose
+
+### Configure S3FS
+
+Follow these directions for [installing and mounting a directory via fstab with s3fs-fuse](https://github.com/s3fs-fuse/s3fs-fuse).  Name and mount the directory as `data` in the gitblit-docker directory.  Migrate or copy the data files into that directory.
+
+### Start the container
+
+```console
+$ /usr/local/bin/docker-compose -f /<path_to_gitblit-docker>/docker-compose.yml up -d
+```
+
+The container will restart automatically on failure.  Add the following to your crontab to start the container on reboot:
+
+```
+@reboot /usr/local/bin/docker-compose /<path_to_gitblit-docker>/docker-compose.yml up -d > /dev/null 2>&1
+```
