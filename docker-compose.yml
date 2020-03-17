@@ -1,11 +1,18 @@
-gitblit:
-  restart: on-failure
-  build: .
-  ports:
-    - "10443:8443"
-    - "9418:9418"
-    - "29418:29418"
-  volumes:
-    - ./data:/var/opt/gitblit
-#  environment:
-#    - DEBUG=false
+version: '3'
+
+volumes:
+  gitblit_data: {}
+
+services:
+  gitblit:
+    restart: on-failure
+    build: .
+    ports:
+      - "10443:8443"
+      - "9418:9418"
+      - "29418:29418"
+    volumes:
+      - gitblit_data:/var/opt/gitblit
+      - ./data:/backup
+#    environment:
+#      - DEBUG=false
