@@ -105,11 +105,11 @@ Done.
 $ sudo docker run -d --name gitblit -v $PWD/gitblit-data:/var/opt/gitblit -p 8080:8080 my-gitblit
 ```
 
-## S3FS data directory and Docker-compose
+## Docker-compose with S3 backups
 
-### Configure S3FS
+### Configure s3fs-fuse
 
-Follow these directions for [installing and mounting a directory via fstab with s3fs-fuse](https://github.com/s3fs-fuse/s3fs-fuse).  Name and mount the directory as `data` in the gitblit-docker directory.  Migrate or copy the data files into that directory.
+Follow these directions for [installing and mounting a directory via fstab with s3fs-fuse](https://github.com/s3fs-fuse/s3fs-fuse).  Name and mount the directory as `data` in the gitblit-docker directory.
 
 ### Start the container
 
@@ -117,8 +117,9 @@ Follow these directions for [installing and mounting a directory via fstab with 
 $ /usr/local/bin/docker-compose -f /<path_to_gitblit-docker>/docker-compose.yml up -d
 ```
 
-The container will restart automatically on failure.  Add the following to your crontab to start the container on reboot:
+The container will restart automatically on failure.  Add the following to your crontab to start the container on reboot and automatically backup on a weekly basis:
 
 ```
-@reboot /usr/local/bin/docker-compose /<path_to_gitblit-docker>/docker-compose.yml up -d > /dev/null 2>&1
+@reboot /<path_to_docker-compose>/docker-compose -f /<path_to_gitblit-docker>/docker-compose.yml up -d > /dev/null 2>&1
+0 5 * * 1 /<path_to_docker-compose>/docker-compose -f /<path_to_gitblit-docker>/docker-compose.yml run --rm gitblit sh -c 'tar -zcvf /backup/gitblit-data-backup_$(date +"%Y%m%d").tar.gz /var/opt/gitblit' > /dev/null 2>&1
 ```
