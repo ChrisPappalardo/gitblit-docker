@@ -1,8 +1,5 @@
 version: '3'
 
-volumes:
-  gitblit_data: {}
-
 services:
   gitblit:
     restart: on-failure
@@ -12,7 +9,6 @@ services:
       - "9418:9418"
       - "29418:29418"
     volumes:
-      - gitblit_data:/opt/gitblit-data
-      - ./data:/backup
+      - ./data:/opt/gitblit-data
 #    environment:
 #      - DEBUG=false
